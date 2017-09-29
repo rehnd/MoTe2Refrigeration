@@ -42,6 +42,7 @@ ylim(0, 0.9)
 xlabel('Temperature (K)')
 ylabel('Specific heat (meV/K/f.u.)')
 legend(['$C_\mathrm{2H}$', "$C_\mathrm{1T'}$", "$C_\mathrm{1T'}-C_\mathrm{2H}$"],loc=5)
+tick_params(direction='in', width=3, length=9, right='on', top='on')
 savefig('sifig1.png',dpi=300,bbox_inches='tight')
 
 ctpJcm3 = copy(ctp_new)
