@@ -1,0 +1,26 @@
+SYSTEM  = MoTe2 with Spin orbit Phonon calculation (DFPT)
+NCORE   = 8
+
+ENCUT   =  350
+NELMDL  =   -5
+ALGO    = Normal
+IBRION  = 8         # 8 for phonon calculations
+NSW     = 1         # the max number of ionic steps
+ISIF    = 2         # determines whether the ions and the cell shape is changed
+POTIM   = 0.5
+PREC    = Accurate
+EDIFF   = 1.0e-05
+ISYM    = 0
+LREAL   = .FALSE.
+NWRITE  = 3
+ISMEAR  = 0
+SIGMA   = 0.05
+ADDGRID = .TRUE.
+LCHARG  = .FALSE.
+LWAVE   = .FALSE.
+
+
+LSORBIT = .TRUE.
+ISPIN = 2
+ICHARG = 1
+LMAXMIX = 4

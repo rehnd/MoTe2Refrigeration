@@ -1,0 +1,29 @@
+System  = 2D MoTe2 in a box
+NCORE   = 8
+#KPAR    =16
+
+ENCUT   = 350
+NELMDL  = -5
+ALGO    = Normal
+IBRION  = -1
+NSW     = 1
+ISIF    = 2
+POTIM   = 0.500000
+PREC    = Accurate
+EDIFF   = 1.000000e-08
+ISYM    = 0
+LREAL   = .FALSE.
+NWRITE  = 3
+
+ISMEAR  = -1
+SIGMA   = 0.008621738
+
+#ADDGRID = .TRUE.
+LCHARG  = .FALSE.
+LWAVE   = .FALSE.
+
+LSORBIT = .TRUE.
+ISPIN = 2
+ICHARG = 1
+LMAXMIX = 4
+
