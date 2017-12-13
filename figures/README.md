@@ -17,3 +17,5 @@ ___
 ### SI Figure 2
 <img src="./sifig2/sifig2.png" width=400>
 
+### SI Figure 3
+<img src="./sifig3/sifig3.png" width=400>
