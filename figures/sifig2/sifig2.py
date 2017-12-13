@@ -1,67 +1,75 @@
 from pylab import *
 rcParams.update({'font.size': 48, 'text.usetex': True})
 
-# Constants
 mol   = 6.022e23
 JtoeV = 1.602e-19
-nfu   = 2*2*2                 # number of formula units
+nfu   = 2*2*2 # number of formula units
 vfu2h = 0.3551*0.6149*0.698/2 # volume of 1 f.u. of 2H (in nm^3)
+vfu1tp= 0.3452*0.6368*0.698/2 # volume of 1 f.u. of 1T' (in nm^3)
 
-# 2H and 1T' phonopy data
-thermal2h = genfromtxt('../../data/thermal_properties/phonon/2H/thermal.dat', skip_header=20,skip_footer=5)
-thermal1t = genfromtxt('../../data/thermal_properties/phonon/1Tp/thermal.dat',skip_header=20,skip_footer=5)
+tp = genfromtxt('thermal-1tp.dat', skip_header=20, skip_footer=5)
+h = genfromtxt('thermal-2h.dat', skip_header=20, skip_footer=5)
 
-# Electronic entropy of 1T' and 2H
-selectrons = genfromtxt('../../data/thermal_properties/electron/entropy.dat', skip_header=1)
-sel2h = selectrons[:,0]
-sel1t = selectrons[:,1]
+T = tp[:,0]
+ch = h[:,3]  # in J/K/mol
+chJcm3 = ch*1e21/(vfu2h*mol*nfu) # 2H heat capacity in J/K/cm3
 
-# Temperatures in K, entropy of 2H, 1T'
-T  = thermal2h[:,0]
-sh = thermal2h[:,2]
-st = thermal1t[:,2]
+ctp = tp[:,3] # J/K/mol
 
-sh /= (mol*JtoeV)
-sh /= 2*2*2
-sh *= 1000
 
-st /= (mol*JtoeV)
-st /= 2*2*2
-st *= 1000
+ch /= JtoeV # eV/K/mol
+ch /= mol   # eV/K/unit cell
+ch /= nfu   # eV/K/f.u.
+ch *= 1000  # meV/K/f.u.
 
-st += sel1t
+ctp /= JtoeV # eV/K/mol
+ctp /= mol   # eV/K/unit cell
+ctp /= nfu   # eV/K/f.u.
+ctp *= 1000  # meV/K/f.u.
 
-print("S_2H(280K) = %8g meV/K/f.u." %sh[28])
-print("S_Tp(280K) = %8g meV/K/f.u." %st[28])
+ctpel = genfromtxt('Ctp_el.dat') # eV/K/f.u.
+ctpel *= 1000 # meV/K/f.u.
 
-# print("dSel(300K) = %8g meV/K/f.u." %dSel[30])
-# print("dSel(690K) = %8g meV/K/f.u." %dSel[69])
+ctp_new = ctp[:-1] + ctpel  # meV/K/f.u.
 
-lws=8
-f = figure(figsize=(15,12))
-plot(T, sh,'orange',lw=lws)
-plot(T, st,'green',lw=lws)
-plot(T, st-sh,lw=lws)
-legend(["$S_\mathrm{2H}$",
-        "$S_\mathrm{1T'}$",
-        "$S_\mathrm{1T'}-S_\mathrm{2H}$"], loc = 2, fontsize=42)
-xlim(0,1050)
-ylim(0,2.5)
+lws = 8
+f = figure(figsize=(16,12))
+plot(T, ch, 'orange', lw=lws)
+plot(T[:-1], ctp_new, 'g', lw=lws)
+plot(T[:-1], ctp_new - ch[:-1], lw=lws)
+xlim(0,1100)
+ylim(0, 0.9)
 xlabel('Temperature (K)')
-ylabel('Entropy (meV/K/f.u.)')
+ylabel('Specific heat (meV/K/f.u.)')
+legend(['$C_\mathrm{2H}$', "$C_\mathrm{1T'}$", "$C_\mathrm{1T'}-C_\mathrm{2H}$"],loc=5)
 tick_params(direction='in', width=3, length=9, right='on', top='on')
-savefig('sifig2.png', dpi=300, bbox_inches='tight')
+savefig('sifig1.png',dpi=300,bbox_inches='tight')
+
+ctpJcm3 = copy(ctp_new)
+ctpJcm3 /= 1000   # eV/K/f.u.
+ctpJcm3 *= mol    # eV/K/mol
+ctpJcm3 *= JtoeV  # J/K/mol
+ctpJcm3 = ctpJcm3*1e21/(vfu1tp*mol*1) # 2H heat capacity in J/K/cm3 (nfu = 1 here)
+
+print("T=700 K heat capacit of 2H = %g meV/K/f.u."%ch[70])
+print("                           = %g J/K/cm3"%chJcm3[70])
+
+print()
+print("T=320 K heat capacit of 1t' = %g meV/K/f.u."%(ctp_new[32]))
+print("T=270 K heat capacit of 1t' = %g meV/K/f.u."%(ctp_new[27]))
+print("C_1tp(320) - C_1tp(270) = %g meV/K/f.u." %abs(ctp_new[32]-ctp_new[27]))
+
+print()
+print("T=320 K heat capacit of 2H = %g meV/K/f.u."%(ch[32]))
+print("T=270 K heat capacit of 2H = %g meV/K/f.u."%(ch[27]))
+print("C_2H(320) - C_2H(270) = %g meV/K/f.u." %abs(ch[32]-ch[27]))
 
 
-f = figure(figsize=(15,12))
-plot(T, 100*(sh-sh[28])/sh[28],lw=lws)
-plot(T, 100*(st-st[28])/st[28],lw=lws)
-axhline(0, color='grey',lw=2)
-#plot(T, st,lw=lws)
-legend(["2H", "1T'"], loc = 2, fontsize=36)
-xlim(270,290)
-ylim(-5,5)
-xlabel('Temperature (K)')
-ylabel('Error in entropy near $T=280$ K (\%)')
-tick_params(direction='in', width=3, length=9, right='on', top='on')
-savefig('sifig2b.png', dpi=300, bbox_inches='tight')
+print()
+print("C_2H(280)  = %g meV/K/f.u." %ch[28])
+print("C_1T'(280) = %g meV/K/f.u." %ctp[28])
+
+
+print()
+print("C_2H(280) = %g J/K/cm3" %chJcm3[28])
+print("C_1T'(280) = %g J/K/cm3" %ctpJcm3[28])

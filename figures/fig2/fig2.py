@@ -1,15 +1,17 @@
 from pylab import *
 rcParams.update({'font.size': 48, 'text.usetex': True})
 
-dS = genfromtxt('dSph_dSel.dat') # read in as meV/K/f.u.
-C2H = 0.729018 # meV/K/f.u.
-CTp = 0.734816 # meV/K/f.u.
+#dS = genfromtxt('dSph_dSel.dat') # read in as meV/K/f.u.
+#C2H = 0.729018 # meV/K/f.u.
+CTp = 0.737442 # meV/K/f.u.
 
-print('dS(270), dS(280), dS(290) = %g %g %g'%(dS[27],dS[28],dS[29]))
-print('C2H  = %g meV/K/f.u.'%C2H)
+#print('dS(270), dS(280), dS(290) = %g %g %g'%(dS[27],dS[28],dS[29]))
+#print('C2H  = %g meV/K/f.u.'%C2H)
 print('C1Tp = %g meV/K/f.u.'%CTp)
 
-ds = dS[28]
+#ds = dS[28]
+
+ds = 0.036806
 
 x1 = linspace(0,0.9,1000)
 x2 = linspace(0.9,1.0,100)
@@ -55,11 +57,15 @@ axvline(1, color='blue', linewidth=lwv)
 fill_between(xl, 260*ones(len(xl)), 290*ones(len(xl)), color='g', alpha=0.25)
 fill_between(xm, 260*ones(len(xm)), 290*ones(len(xl)), color='r', alpha=0.25)
 fill_between(xr, 260*ones(len(xr)), 290*ones(len(xl)), color='b', alpha=0.25)
-text(1.05, 287,'2H')
-text(0.38, 287,'Mixed')
-text(-0.15, 287,"1T'")
-ylim(268,290)
-yticks([270,275,280,285,290])
+text(1.05, 284,'2H')
+text(0.38, 284,'Mixed')
+text(-0.15, 284,"1T'")
+text(-0.05, 269, "1",fontsize=26)
+text(0.65, 280, "2", fontsize=26)
+text(1.025, 280, "3", fontsize=26)
+text(0.33, 269, "4", fontsize=26)
+ylim(268,286)
+yticks([270,275,280,285])
 xlim(-0.2,1.2)
 legend(['$x_2 = 0.9$', '$x_2 = 0.7$'],loc = 4,fontsize=32)
 xticks([0,0.25,0.5,0.75,1.0])
