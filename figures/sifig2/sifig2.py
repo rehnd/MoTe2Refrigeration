@@ -27,10 +27,15 @@ ctp /= mol   # eV/K/unit cell
 ctp /= nfu   # eV/K/f.u.
 ctp *= 1000  # meV/K/f.u.
 
-ctpel = genfromtxt('Ctp_el.dat') # eV/K/f.u.
-ctpel *= 1000 # meV/K/f.u.
+#ctpel = genfromtxt('Ctp_el.dat') # eV/K/f.u.
+#ctpel *= 1000 # meV/K/f.u.
 
-ctp_new = ctp[:-1] + ctpel  # meV/K/f.u.
+ctp_new = ctp[:-1] #+ ctpel  # meV/K/f.u.
+
+print("C1T'(270) = %f meV/K/f.u." %ctp[(T-270)>0][0])
+print("C1T'(280) = %f meV/K/f.u." %ctp[(T-280)>0][0])
+print("C1T'(290) = %f meV/K/f.u." %ctp[(T-290)>0][0])
+print("C1T'(300) = %f meV/K/f.u." %ctp[(T-300)>0][0])
 
 lws = 8
 f = figure(figsize=(16,12))
@@ -43,7 +48,7 @@ xlabel('Temperature (K)')
 ylabel('Specific heat (meV/K/f.u.)')
 legend(['$C_\mathrm{2H}$', "$C_\mathrm{1T'}$", "$C_\mathrm{1T'}-C_\mathrm{2H}$"],loc=5)
 tick_params(direction='in', width=3, length=9, right='on', top='on')
-savefig('sifig1.png',dpi=300,bbox_inches='tight')
+savefig('sifig2.png',dpi=300,bbox_inches='tight')
 
 ctpJcm3 = copy(ctp_new)
 ctpJcm3 /= 1000   # eV/K/f.u.
