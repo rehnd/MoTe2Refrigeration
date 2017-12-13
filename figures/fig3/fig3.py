@@ -1,8 +1,9 @@
 from pylab import *
 rcParams.update({'font.size': 48, 'text.usetex': True})
 
-ds  = 0.048   # meV/K/f.u.  average value from 270 to 290 K
-ctp = 0.7348 # meV/K/f.u. (value at 280 K, phonon contribution only)
+#ds  = 0.048  
+ds  = 0.036806 # meV/K/f.u.  average value from 270 to 290 K
+ctp = 0.737442 # meV/K/f.u. (value at 280 K, phonon contribution only)
 
 def getCycle(x1,x2,T1):
     """
@@ -51,7 +52,7 @@ def getV(T):
     xi = 0 
     
     # Load in the TV values computed from the CC relation
-    TV = genfromtxt('TV.dat')
+    TV = genfromtxt('../../data/thermal_properties/electron/charged/TV.dat')
     V  = TV[:,0]
     TV = TV[:,1]
     
@@ -128,13 +129,13 @@ if __name__ == '__main__':
     fill_between(sigma, vtp, v2h, color='r', alpha=0.25)
     fill_between(sigma, v2h, 4*ones(len(v2h)), color='b', alpha=0.25)
     legend(['$x_2 = 0.9$', '$x_2 = 0.7$'], loc=4, fontsize=36)
-    ylim(3.54,3.67)
-    xlim(0.072, 0.092)
-    text(0.075, 3.65,'2H')
-    text(0.0814, 3.65,'Mixed')
-    text(0.0894, 3.65,"1T'")
+    ylim(3.7,3.8)
+    xlim(0.076, 0.096)
+    text(0.0785, 3.785,'2H')
+    text(0.0855, 3.785,'Mixed')
+    text(0.093, 3.785,"1T'")
     tick_params(direction='in', width=3, length=9, right='on', top='on')
-    xticks([0.075, 0.08,0.085,0.09])
+    xticks([0.08,0.085,0.09,0.095])
     xlabel('$\sigma$ (e/f.u.)')
     ylabel('$V$ (V)')
     savefig('fig3.png', bbox_inches='tight', dpi=300)
