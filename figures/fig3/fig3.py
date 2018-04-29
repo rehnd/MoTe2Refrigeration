@@ -121,7 +121,7 @@ if __name__ == '__main__':
     
     # Plotting routine
     f = figure()
-    plot(Q,V,'r')
+    plot(Q,V,'darkorange')
     plot(QQ,VV,'k--')
     plot(sigma,v2h,'b')
     plot(sigma,vtp,'g')
