@@ -44,13 +44,13 @@ lw = 6
 lw2 = 4
 lwv=4
 f = figure()
-plot(x1,Th1,'r',linewidth=lw)
+plot(x1,Th1,'darkorange',linewidth=lw)
 plot(x11,Th11,'k--',linewidth=lw2)
-plot(x2,Th2,'r',linewidth=lw)
+plot(x2,Th2,'darkorange',linewidth=lw)
 plot(x21,Th21,'k--',linewidth=lw2)
-plot(x3,Th3,'r',linewidth=lw)
+plot(x3,Th3,'darkorange',linewidth=lw)
 plot(x31,Th31,'k--',linewidth=lw2)
-plot(x4,Th4,'r',linewidth=lw)
+plot(x4,Th4,'darkorange',linewidth=lw)
 plot(x41,Th41,'k--',linewidth=lw2)
 axvline(0, color='green',linewidth=lwv)
 axvline(1, color='blue', linewidth=lwv)
