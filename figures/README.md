@@ -9,6 +9,12 @@
 ### Figure 3
 <img src="./fig3/fig3.png" width=400>
 
+### Figure 4
+<img src="./fig4/fig4.png" width=400>
+
+### Figure 5
+<img src="./fig5/fig5.png" width=400>
+
 ___
 
 ### SI Figure 1
